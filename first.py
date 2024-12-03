@@ -2,6 +2,7 @@ import math
 import random
 from PIL import Image, ImageDraw 
 from datetime import datetime
+import configparser
 
 
 class displacement:
@@ -26,6 +27,7 @@ class displacement:
 
 
     def addRectangulars(self, anImage, w, h, number):
+        theColor = self.colors[random.randint(0,len(self.colors)-1)]
         for i in range(number):
 
             x1 = random.randint(0,w)
@@ -35,11 +37,12 @@ class displacement:
             y2 = y1 + 100
 
             shape = [x1,y1,x2,y2] 
-            anImage.rectangle(shape, fill =self.colors[random.randint(0,2)]) 
+            anImage.rectangle(shape, fill =theColor) 
         return anImage
 
 
-    def addVertLine(self, anImage, w, h, number):        
+    def addVertLine(self, anImage, w, h, number):       
+        theColor = self.colors[random.randint(0,len(self.colors)-1)] 
         for i in range(number):
             x1 = random.randint(0,w)
             y1 = random.randint(0,w)
@@ -48,11 +51,12 @@ class displacement:
             y2 = y1 + 100
 
             shape = [x1,y1,x2,y2] 
-            anImage.line(shape, fill =self.colors[random.randint(0,2)], width=10) 
+            anImage.line(shape, fill =theColor, width=10) 
         return anImage
 
 
     def addHorLine(self, anImage, w, h, number):
+        theColor = self.colors[random.randint(0,len(self.colors)-1)] 
         for i in range(number):
             x1 = random.randint(0,w)
             y1 = random.randint(0,w)
@@ -61,7 +65,7 @@ class displacement:
             y2 = y1
 
             shape = [x1,y1,x2,y2] 
-            anImage.line(shape, fill =self.colors[random.randint(0,2)], width=10) 
+            anImage.line(shape, fill =theColor, width=10) 
         return anImage
 
     def addCircle(self, anImage, w, h, number):
