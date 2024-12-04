@@ -1,14 +1,25 @@
-import math 
+import os
+import sys
 import random
 from PIL import Image, ImageDraw 
 from datetime import datetime
 import configparser
 
+import argparse
+
+
 
 class displacement:
 
-    def __init__(self):
-        self.colors = colors = ["grey", "lightgrey", "dimgrey", "gainsboro", "lightslategray", "slategrey"]
+    def __init__(self, config):
+        self.config = config
+        self.colors = ["grey", "lightgrey", "dimgrey", "gainsboro", "lightslategray", "slategrey"]
+
+
+    def getRandomStartpoint(self):
+        x1 = random.randint(0,int(self.config["size"]["width"]))
+        y1 = random.randint(0,int(self.config["size"]["height"]))
+        return x1, y1
 
 
     def rgb2hex(self, r,g,b):
@@ -29,9 +40,7 @@ class displacement:
     def addRectangulars(self, anImage, w, h, number):
         theColor = self.colors[random.randint(0,len(self.colors)-1)]
         for i in range(number):
-
-            x1 = random.randint(0,w)
-            y1 = random.randint(0,w)
+            x1, y1 = self.getRandomStartpoint()
         
             x2 = x1 + 100
             y2 = y1 + 100
@@ -44,8 +53,7 @@ class displacement:
     def addVertLine(self, anImage, w, h, number):       
         theColor = self.colors[random.randint(0,len(self.colors)-1)] 
         for i in range(number):
-            x1 = random.randint(0,w)
-            y1 = random.randint(0,w)
+            x1, y1 = self.getRandomStartpoint()
         
             x2 = x1 
             y2 = y1 + 100
@@ -58,8 +66,7 @@ class displacement:
     def addHorLine(self, anImage, w, h, number):
         theColor = self.colors[random.randint(0,len(self.colors)-1)] 
         for i in range(number):
-            x1 = random.randint(0,w)
-            y1 = random.randint(0,w)
+            x1, y1 = self.getRandomStartpoint()
         
             x2 = x1 + 100 
             y2 = y1
@@ -70,8 +77,7 @@ class displacement:
 
     def addCircle(self, anImage, w, h, number):
         for i in range(number):
-            x1 = random.randint(0,w)
-            y1 = random.randint(0,w)
+            x1, y1 = self.getRandomStartpoint()
         
             x2 = x1 + 100 
             y2 = y1 + 100
@@ -84,8 +90,7 @@ class displacement:
         theColor = self.colors[random.randint(0,len(self.colors)-1)]
 
         for i in range(number):
-            x1 = random.randint(0,w)
-            y1 = random.randint(0,w)
+            x1, y1 = self.getRandomStartpoint()
                     
             x2 = x1 
             y2 = y1 + 100 
@@ -101,8 +106,7 @@ class displacement:
         theColor = self.colors[random.randint(0,len(self.colors)-1)]
 
         for i in range(number):
-            x1 = random.randint(0,w)
-            y1 = random.randint(0,w)
+            x1, y1 = self.getRandomStartpoint()
         
             x2 = x1 + 100
             y2 = y1  
@@ -117,8 +121,7 @@ class displacement:
     def addVerticalRowOfHoles(self, anImage, w, h, steps, number):
         theColor = self.colors[random.randint(0,len(self.colors)-1)]
         for i in range(number):
-            x1 = random.randint(0,w)
-            y1 = random.randint(0,w)
+            x1, y1 = self.getRandomStartpoint()
         
             x2 = x1 + 10
             y2 = y1 + 10 
@@ -133,8 +136,7 @@ class displacement:
     def addHorizontalRowOfHoles(self, anImage, w, h, steps, number):
         theColor = self.colors[random.randint(0,len(self.colors)-1)]
         for i in range(number):
-            x1 = random.randint(0,w)
-            y1 = random.randint(0,w)
+            x1, y1 = self.getRandomStartpoint()
         
             x2 = x1 + 10
             y2 = y1 + 10 
@@ -151,7 +153,20 @@ class displacement:
 
 if __name__ == "__main__":
 
-    dis = displacement()
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("--config", "-c" , default="config.ini", help="The config file")
+    parser.add_argument("--outputfolder", "-o", default=".", help = "The folder where the displacement maps will be saved")
+    parser.add_argument("--amount", "-a", default = 1, help="The number of displacements maps to generate")
+    
+    args = parser.parse_args()
+    print(args.config, args.outputfolder, args.amount)
+
+    config = configparser.ConfigParser()
+    config.read(args.config)
+    print(config.sections())
+
+    dis = displacement(config)
     dis.calculateColors(10)
 
 
@@ -172,7 +187,7 @@ if __name__ == "__main__":
 
 
     now = datetime.now()
-    filename = now.strftime("%d-%m-%Y_%H-%M-%S") + ".png"
+    filename = args.outputfolder + "/" +  now.strftime("%d-%m-%Y_%H-%M-%S") + ".png"
 
     image.save(filename)
 
