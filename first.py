@@ -11,6 +11,10 @@ class displacement:
         self.config = config
         self.colors = ["grey", "lightgrey", "dimgrey", "gainsboro", "lightslategray", "slategrey"]
         self.calculateColors(int(self.config["imagesettings"]["numberofcolors"]))
+        self.newImage()
+
+
+    def newImage(self):
         image = Image.new("RGB", (int(self.config["imagesettings"]["width"]), int(self.config["imagesettings"]["width"])), color="white") 
         img = ImageDraw.Draw(image)
         self.img = img
@@ -161,21 +165,25 @@ if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read(args.config)
 
+    now = datetime.now()
+
     dis = displacement(config)
     
-    img = dis.addRectangulars()
-    img = dis.addCircle()
-    img = dis.addVertLine()
-    img = dis.addHorLine()
-    img = dis.addHorizontalRadiator()
-    img = dis.addVerticalRadiator()
-    img = dis.addVerticalRowOfHoles()
-    img = dis.addHorizontalRowOfHoles()
+    for i in range(int(args.amount)):
+        dis.newImage()
+        dis.addRectangulars()
+        dis.addCircle()
+        dis.addVertLine()
+        dis.addHorLine()
+        dis.addHorizontalRadiator()
+        dis.addVerticalRadiator()
+        dis.addVerticalRowOfHoles()
+        dis.addHorizontalRowOfHoles()
 
-    now = datetime.now()
-    filename = args.outputfolder + "/" +  now.strftime("%d-%m-%Y_%H-%M-%S") + ".png"
+        filename = args.outputfolder.rstrip("/") + "/" +  now.strftime("%d-%m-%Y_%H-%M-%S") + "_" + str(i) + ".png"
 
-    dis.saveImageToFile(filename)
+        dis.saveImageToFile(filename)
+        print("File saved ", filename)
 
     print("Done.")
    
