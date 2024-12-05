@@ -1,5 +1,3 @@
-import os
-import sys
 import random
 from PIL import Image, ImageDraw 
 from datetime import datetime
@@ -7,18 +5,23 @@ import configparser
 
 import argparse
 
-
-
 class displacement:
 
     def __init__(self, config):
         self.config = config
         self.colors = ["grey", "lightgrey", "dimgrey", "gainsboro", "lightslategray", "slategrey"]
+        self.calculateColors(int(self.config["imagesettings"]["numberofcolors"]))
+        image = Image.new("RGB", (int(self.config["imagesettings"]["width"]), int(self.config["imagesettings"]["width"])), color="white") 
+        img = ImageDraw.Draw(image)
+        self.img = img
+        self.image = image
 
+    def saveImageToFile(self, filename):
+        self.image.save(filename)
 
     def getRandomStartpoint(self):
-        x1 = random.randint(0,int(self.config["size"]["width"]))
-        y1 = random.randint(0,int(self.config["size"]["height"]))
+        x1 = random.randint(0,int(self.config["imagesettings"]["width"]))
+        y1 = random.randint(0,int(self.config["imagesettings"]["height"]))
         return x1, y1
 
 
@@ -35,120 +38,111 @@ class displacement:
             colors.append(hexValue)
         self.colors = colors
 
-
-
-    def addRectangulars(self, anImage, w, h, number):
+    def addRectangulars(self):
         theColor = self.colors[random.randint(0,len(self.colors)-1)]
-        for i in range(number):
+        for i in range(int(self.config["rectangulars"]["number"])):
             x1, y1 = self.getRandomStartpoint()
         
             x2 = x1 + 100
             y2 = y1 + 100
 
             shape = [x1,y1,x2,y2] 
-            anImage.rectangle(shape, fill =theColor) 
-        return anImage
+            self.img.rectangle(shape, fill =theColor) 
 
-
-    def addVertLine(self, anImage, w, h, number):       
+    def addVertLine(self):       
         theColor = self.colors[random.randint(0,len(self.colors)-1)] 
-        for i in range(number):
+        for i in range(int(self.config["vertlines"]["number"])):
             x1, y1 = self.getRandomStartpoint()
         
             x2 = x1 
             y2 = y1 + 100
 
             shape = [x1,y1,x2,y2] 
-            anImage.line(shape, fill =theColor, width=10) 
-        return anImage
-
-
-    def addHorLine(self, anImage, w, h, number):
+            self.img.line(shape, fill =theColor, width=10) 
+        
+    def addHorLine(self):
         theColor = self.colors[random.randint(0,len(self.colors)-1)] 
-        for i in range(number):
+        for i in range(int(self.config["horlines"]["number"])):
             x1, y1 = self.getRandomStartpoint()
         
             x2 = x1 + 100 
             y2 = y1
 
             shape = [x1,y1,x2,y2] 
-            anImage.line(shape, fill =theColor, width=10) 
-        return anImage
+            self.img.line(shape, fill =theColor, width=10) 
 
-    def addCircle(self, anImage, w, h, number):
-        for i in range(number):
+    def addCircle(self):
+        for i in range(int(self.config["circles"]["number"])):
             x1, y1 = self.getRandomStartpoint()
         
             x2 = x1 + 100 
             y2 = y1 + 100
 
             shape = [x1,y1,x2,y2] 
-            anImage.ellipse(shape, fill=self.colors[random.randint(0,2)]) 
-        return anImage
+            self.img.ellipse(shape, fill=self.colors[random.randint(0,2)]) 
+        
 
-    def addHorizontalRadiator(self, anImage, w, h, steps, number):
+    def addHorizontalRadiator(self):
         theColor = self.colors[random.randint(0,len(self.colors)-1)]
 
-        for i in range(number):
+        for i in range(int(self.config["horizontalradiator"]["number"])):
             x1, y1 = self.getRandomStartpoint()
                     
             x2 = x1 
             y2 = y1 + 100 
 
-            for i2 in range(steps):
+            for i2 in range(int(self.config["horizontalradiator"]["steps"])):
                 x1 = x1 + 30
                 x2 = x2 + 30
                 shape = [x1,y1,x2,y2] 
-                anImage.line(shape, fill = theColor, width=10) 
-        return anImage
+                self.img.line(shape, fill = theColor, width=10) 
+        
 
-    def addVerticalRadiator(self, anImage, w, h, steps, number):
+    def addVerticalRadiator(self):
         theColor = self.colors[random.randint(0,len(self.colors)-1)]
 
-        for i in range(number):
+        for i in range(int(self.config["verticalradiator"]["number"])):
             x1, y1 = self.getRandomStartpoint()
         
             x2 = x1 + 100
             y2 = y1  
 
-            for i2 in range(steps):
+            for i2 in range(int(self.config["verticalradiator"]["steps"])):
                 y1 = y1 + 30
                 y2 = y2 + 30
                 shape = [x1,y1,x2,y2] 
-                anImage.line(shape, fill =theColor, width=10) 
-        return anImage
+                self.img.line(shape, fill =theColor, width=10) 
+        
 
-    def addVerticalRowOfHoles(self, anImage, w, h, steps, number):
+    def addVerticalRowOfHoles(self):
         theColor = self.colors[random.randint(0,len(self.colors)-1)]
-        for i in range(number):
+        for i in range(int(self.config["verticalrowofholes"]["number"])):
             x1, y1 = self.getRandomStartpoint()
         
             x2 = x1 + 10
             y2 = y1 + 10 
 
-            for i2 in range(steps):
+            for i2 in range(int(self.config["verticalrowofholes"]["steps"])):
                 y1 = y1 + 30
                 y2 = y2 + 30
                 shape = [x1,y1,x2,y2] 
-                anImage.ellipse(shape, fill=theColor)  
-        return anImage
+                self.img.ellipse(shape, fill=theColor)  
+    
 
-    def addHorizontalRowOfHoles(self, anImage, w, h, steps, number):
+    def addHorizontalRowOfHoles(self):
         theColor = self.colors[random.randint(0,len(self.colors)-1)]
-        for i in range(number):
+        for i in range(int(self.config["horizontalrowofholes"]["number"])):
             x1, y1 = self.getRandomStartpoint()
         
             x2 = x1 + 10
             y2 = y1 + 10 
 
-            for i2 in range(steps):
+            for i2 in range(int(self.config["horizontalrowofholes"]["steps"])):
                 x1 = x1 + 30
                 x2 = x2 + 30
                 shape = [x1,y1,x2,y2] 
-                anImage.ellipse(shape, fill=theColor)  
-        return anImage
-
-
+                self.img.ellipse(shape, fill=theColor)  
+        
 
 
 if __name__ == "__main__":
@@ -160,35 +154,28 @@ if __name__ == "__main__":
     parser.add_argument("--amount", "-a", default = 1, help="The number of displacements maps to generate")
     
     args = parser.parse_args()
-    print(args.config, args.outputfolder, args.amount)
+    print("Config file: ", args.config)
+    print("Output folder: ", args.outputfolder)
+    print("Number of displacement maps to create: ", args.amount)
 
     config = configparser.ConfigParser()
     config.read(args.config)
-    print(config.sections())
 
     dis = displacement(config)
-    dis.calculateColors(10)
-
-
-    w, h = 1000, 1000
-    image = Image.new("RGB", (w, h), color="white") 
-    img = ImageDraw.Draw(image)   
-  
-    count = 50
-    img = dis.addRectangulars(img, w, h, count)
-    img = dis.addCircle(img, w, h, count // 2)
-    img = dis.addVertLine(img, w, h, count)
-    img = dis.addHorLine(img, w, h, count)
-    img = dis.addHorizontalRadiator(img, w, h, 5, 5)
-    img = dis.addVerticalRadiator(img, w, h, 3, 5)
-
-    img = dis.addVerticalRowOfHoles(img, w, h, 5, 5)
-    img = dis.addHorizontalRowOfHoles(img, w, h, 5, 5)
-
+    
+    img = dis.addRectangulars()
+    img = dis.addCircle()
+    img = dis.addVertLine()
+    img = dis.addHorLine()
+    img = dis.addHorizontalRadiator()
+    img = dis.addVerticalRadiator()
+    img = dis.addVerticalRowOfHoles()
+    img = dis.addHorizontalRowOfHoles()
 
     now = datetime.now()
     filename = args.outputfolder + "/" +  now.strftime("%d-%m-%Y_%H-%M-%S") + ".png"
 
-    image.save(filename)
+    dis.saveImageToFile(filename)
 
-    image.show() 
+    print("Done.")
+   
