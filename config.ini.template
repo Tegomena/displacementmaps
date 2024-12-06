@@ -1,6 +1,6 @@
 [imagesettings]
-width = 500
-height = 500
+width = 1000
+height = 1000
 numberofcolors = 10
 
 [rectangulars]
@@ -9,40 +9,40 @@ width = 100
 height = 100
 
 [vertlines]
-number = 0
+number = 10
 length = 100
 
 [horlines]
-number = 0
+number = 10
 length = 100
 
 [circles]
-number = 0 
+number = 5
 width = 100
 height = 100
 
 [horizontalradiator]
-number = 0
+number = 2
 steps = 5
 distance = 30
 length = 100
 width = 10
 
 [verticalradiator]
-number = 0
+number = 2
 steps = 5
 distance = 30
 length = 100
 width = 10
 
 [verticalrowofholes]
-number = 0
+number = 2
 steps = 5
 diameter = 10
 distance = 30
 
 [horizontalrowofholes]
-number = 0
+number = 2
 steps = 5
 diameter = 10
 distance = 30

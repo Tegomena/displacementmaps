@@ -43,8 +43,9 @@ class displacement:
         self.colors = colors
 
     def addRectangulars(self):
-        theColor = self.colors[random.randint(0,len(self.colors)-1)]
+        
         for i in range(int(self.config["rectangulars"]["number"])):
+            theColor = self.colors[random.randint(0,len(self.colors)-1)]
             x1, y1 = self.getRandomStartpoint()
         
             x2 = x1 + 100
