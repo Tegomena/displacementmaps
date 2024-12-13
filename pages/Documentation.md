@@ -19,7 +19,7 @@ On the left you can see the created grey tone bitmap, maybe its a little bit cha
 
 ![Grey tone bitmap](app/static/screenshots/sc2.png)
 
-Now, add some rectangulars: on the "Rectangulars" tab below the buttons, forward the slider "Number of rectangulars" to 20 and click "Render" again:
+Now, add some rectangulars: on the "Rectangulars" tab below the buttons, forward the slider "Number of rectangulars" to 20. With the two other sliders "Height" and "Width" below "Numbers" you can adjust the size of the rectangulars. Now click the "Render" button again:
 
 ![Grey tone bitmap](app/static/screenshots/sc3.png)
 
@@ -28,3 +28,48 @@ As the rectangulars are placed by a random order and also their color is created
 ![Grey tone bitmap](app/static/screenshots/example_rectangulars_rendered.png)
 
 <img src="app/static/screenshots/example_rectangulars_rendered.png" width=200 />
+
+## Further Shapes
+
+In addition to rectangulars, you can add some more kinds of shapes to your displacement map. You can find them and their individual properties in the tabs beside the "Rectangulars":
+
+### Rectangulars
+
+<img src="app/static/rectangulars.png" width=200 />
+<img src="app/static/rectangulars_rendered.png" width=200 />
+
+### Circles
+
+<img src="app/static/circles.png" width=200 />
+<img src="app/static/circles_rendered.png" width=200 />
+
+### Vertical Lines
+
+<img src="app/static/vertlines.png" width=200 />
+<img src="app/static/vertlines_rendered.png" width=200 />
+
+### Horizontal Lines
+
+<img src="app/static/horlines.png" width=200 />
+<img src="app/static/horlines_rendered.png" width=200 />
+
+### Horizontal Radiator
+
+<img src="app/static/horizontalradiator.png" width=200 />
+<img src="app/static/horizontalradiator_rendered.png" width=200 />
+
+### Vertical Radiator
+
+<img src="app/static/verticalradiator.png" width=200 />
+<img src="app/static/verticalradiator_rendered.png" width=200 />
+
+### Vertical Row of Holes
+
+<img src="app/static/verticalrowofholes.png" width=200 />
+<img src="app/static/verticalrowofholes_rendered.png" width=200 />
+
+
+### Horizontal Row of Holes
+
+<img src="app/static/horizontalrowofholes.png" width=200 />
+<img src="app/static/horizontalrowofholes_rendered.png" width=200 />
