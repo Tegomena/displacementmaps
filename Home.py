@@ -33,6 +33,8 @@ if __name__ == "__main__":
 
     st.title("Displacement Maps")
 
+    st.write("Version 0.0.1")
+
     col1, col2 = st.columns([0.3,0.7], gap="small", vertical_alignment="top")
     
     with col1:
