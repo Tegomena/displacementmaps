@@ -47,8 +47,8 @@ class displacement:
         for i in range(int(self.config["rectangulars"]["number"])):
             x1, y1 = self.getRandomStartpoint()
         
-            x2 = x1 + 100
-            y2 = y1 + 100
+            x2 = x1 + int(self.config["rectangulars"]["height"])
+            y2 = y1 + int(self.config["rectangulars"]["width"])
 
             shape = [x1,y1,x2,y2] 
             self.img.rectangle(shape, fill =theColor) 
@@ -59,7 +59,7 @@ class displacement:
             x1, y1 = self.getRandomStartpoint()
         
             x2 = x1 
-            y2 = y1 + 100
+            y2 = y1 + int(self.config["vertlines"]["length"])
 
             shape = [x1,y1,x2,y2] 
             self.img.line(shape, fill =theColor, width=10) 
@@ -69,7 +69,7 @@ class displacement:
         for i in range(int(self.config["horlines"]["number"])):
             x1, y1 = self.getRandomStartpoint()
         
-            x2 = x1 + 100 
+            x2 = x1 + int(self.config["horlines"]["length"]) 
             y2 = y1
 
             shape = [x1,y1,x2,y2] 
@@ -79,8 +79,8 @@ class displacement:
         for i in range(int(self.config["circles"]["number"])):
             x1, y1 = self.getRandomStartpoint()
         
-            x2 = x1 + 100 
-            y2 = y1 + 100
+            x2 = x1 + int(self.config["circles"]["width"]) 
+            y2 = y1 + int(self.config["circles"]["height"])
 
             shape = [x1,y1,x2,y2] 
             self.img.ellipse(shape, fill=self.colors[random.randint(0,2)]) 
@@ -93,11 +93,11 @@ class displacement:
             x1, y1 = self.getRandomStartpoint()
                     
             x2 = x1 
-            y2 = y1 + 100 
+            y2 = y1 + int(self.config["horizontalradiator"]["height"]) 
 
             for i2 in range(int(self.config["horizontalradiator"]["steps"])):
-                x1 = x1 + 30
-                x2 = x2 + 30
+                x1 = x1 + int(self.config["horizontalradiator"]["distance"])
+                x2 = x2 + int(self.config["horizontalradiator"]["distance"])
                 shape = [x1,y1,x2,y2] 
                 self.img.line(shape, fill = theColor, width=10) 
         
@@ -108,12 +108,12 @@ class displacement:
         for i in range(int(self.config["verticalradiator"]["number"])):
             x1, y1 = self.getRandomStartpoint()
         
-            x2 = x1 + 100
+            x2 = x1 + int(self.config["verticalradiator"]["width"])
             y2 = y1  
 
             for i2 in range(int(self.config["verticalradiator"]["steps"])):
-                y1 = y1 + 30
-                y2 = y2 + 30
+                y1 = y1 + int(self.config["verticalradiator"]["distance"])
+                y2 = y2 + int(self.config["verticalradiator"]["distance"])
                 shape = [x1,y1,x2,y2] 
                 self.img.line(shape, fill =theColor, width=10) 
         
@@ -123,12 +123,12 @@ class displacement:
         for i in range(int(self.config["verticalrowofholes"]["number"])):
             x1, y1 = self.getRandomStartpoint()
         
-            x2 = x1 + 10
-            y2 = y1 + 10 
+            x2 = x1 + int(self.config["verticalrowofholes"]["diameter"])
+            y2 = y1 + int(self.config["verticalrowofholes"]["diameter"]) 
 
             for i2 in range(int(self.config["verticalrowofholes"]["steps"])):
-                y1 = y1 + 30
-                y2 = y2 + 30
+                y1 = y1 + int(self.config["verticalrowofholes"]["distance"])
+                y2 = y2 + int(self.config["verticalrowofholes"]["distance"])
                 shape = [x1,y1,x2,y2] 
                 self.img.ellipse(shape, fill=theColor)  
     
@@ -138,12 +138,12 @@ class displacement:
         for i in range(int(self.config["horizontalrowofholes"]["number"])):
             x1, y1 = self.getRandomStartpoint()
         
-            x2 = x1 + 10
-            y2 = y1 + 10 
+            x2 = x1 + int(self.config["horizontalrowofholes"]["diameter"])
+            y2 = y1 + int(self.config["horizontalrowofholes"]["diameter"]) 
 
             for i2 in range(int(self.config["horizontalrowofholes"]["steps"])):
-                x1 = x1 + 30
-                x2 = x2 + 30
+                x1 = x1 + int(self.config["horizontalrowofholes"]["distance"])
+                x2 = x2 + int(self.config["horizontalrowofholes"]["distance"])
                 shape = [x1,y1,x2,y2] 
                 self.img.ellipse(shape, fill=theColor)  
         
