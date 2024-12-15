@@ -48,7 +48,7 @@ if __name__ == "__main__":
         rectNumber = 0
     
     with col2:
-        b1, b2, b3 = st.columns([0.08 , 0.08, 0.9])
+        b1, b2, b3 = st.columns([0.1 , 0.1, 0.8])
         with b1:
             if st.button("Render"):
                 config = configparser.ConfigParser()
